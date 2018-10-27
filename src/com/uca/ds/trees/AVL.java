@@ -77,7 +77,7 @@ public class AVL<K extends Comparable<K>, V> implements Iterable<K> {
 	}
 	
 	
-	public int getHeight() {
+	public int height() {
 		return height(root);
 	}
 	
