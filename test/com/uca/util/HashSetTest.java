@@ -2,42 +2,42 @@ package com.uca.util;
 
 public class HashSetTest {
 	public static void main(String[] args) {
-		Set<Integer> set = new HashSet<>();
-		assert set.size() == 0;
-		assert set.isEmpty() == true;
-		set.add(1);
-		assert set.size() == 1;
-		assert set.isEmpty() == false;
-		set.clear();
-		assert set.size() == 0;
-		set.add(1);
-		set.add(2);
-		set.add(3);
-		assert set.size() == 3;
-		assert set.contains(1) == true;
-		assert set.contains(2) == true;
+		Set<Integer> list = new HashSet<>();
+		assert list.size() == 0;
+		assert list.isEmpty() == true;
+		list.add(1);
+		assert list.size() == 1;
+		assert list.isEmpty() == false;
+		list.clear();
+		assert list.size() == 0;
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		assert list.size() == 3;
+		assert list.contains(1) == true;
+		assert list.contains(2) == true;
 		List<Integer> data = new LinkedList<>();
 		data.add(1);
 		data.add(2);
 		data.add(3);
-		validateElements(set, data);
+		validateElements(list, data);
 
-		assert set.contains(1) == true;
-		set.remove(1);
-		assert set.contains(1) == false;
-		data.remove(new Integer(1));
-		validateElements(set, data);
+		assert list.contains(1) == true;
+		list.remove(1);
+		assert list.contains(1) == false;
+		data.remove(1);
+		validateElements(list, data);
 
-		assert set.contains(3) == true;
-		set.remove(3);
-		assert set.contains(3) == false;
-		data.remove(new Integer(3));
-		validateElements(set, data);
+		assert list.contains(3) == true;
+		list.remove(3);
+		assert list.contains(3) == false;
+		data.remove(3);
+		validateElements(list, data);
 
-		assert set.contains(100) == false;
-		set.remove(100);
-		assert set.contains(100) == false;
-		validateElements(set, data);
+		assert list.contains(100) == false;
+		list.remove(100);
+		assert list.contains(100) == false;
+		validateElements(list, data);
 
 		System.out.println("All test cases passed");
 	}
@@ -46,13 +46,11 @@ public class HashSetTest {
 		Iterator<Integer> ite = l.iterator();
 		assert l.size() == data.size();
 		assert ite.hasNext() == true;
-		int count  = 0;
 		while (ite.hasNext()) {
 			int s = ite.next();
+			System.out.println(s);
 			assert data.contains(s);
-			count++;
 		}
-		assert count==data.size();
 		assert ite.hasNext() == false;
 	}
 }
