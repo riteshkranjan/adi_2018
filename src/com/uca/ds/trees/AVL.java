@@ -14,8 +14,15 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 	private int height(Node n) {
 		if (n == null)
 			return 0;
-		return n.height;
+		return 1 + Math.max(height(n.left), height(n.right));
 	}
+
+	private int balance(Node n) {
+		if (n == null)
+			return 0;
+		return n.balance;
+	}
+
 	@Override
 	public V get(K key) {
 		Node n = get(root, key);
@@ -30,12 +37,12 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 			return n;
 		return cmp > 0 ? get(n.right, key) : get(n.left, key);
 	}
-	
+
 	@Override
 	public void add(K key, V val) {
-		//System.out.println("inserting " + key);
+		System.out.println("inserting " + key);
 		root = add(root, key, val);
-		//System.out.println("\troot is " + root.key);
+		System.out.println("\troot is " + root.key);
 	}
 
 	private Node add(Node n, K key, V val) {
@@ -48,8 +55,8 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 			n.right = add(n.right, key, val);
 		else
 			n.left = add(n.left, key, val);
-		n.height = 1 + Math.max(height(n.left), height(n.right));
-		int diff = height(n.left) - height(n.right);
+		n.balance = 1 + Math.max(balance(n.left), balance(n.right));
+		int diff = balance(n.left) - balance(n.right);
 		if (diff > 1) {
 			if (key.compareTo(n.left.key) > 0) {
 				n.left = leftRotate(n.left);
@@ -67,22 +74,22 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 	}
 
 	private Node leftRotate(Node n) {
-		//System.out.println("\tleft rotating on " + n.key);
+		System.out.println("\tleft rotating on " + n.key);
 		Node t = n.right;
 		n.right = t.left;
 		t.left = n;
-		n.height = 1 + Math.max(height(n.left), height(n.right));
-		t.height = 1 + Math.max(height(t.left), height(t.right));
+		n.balance = 1 + Math.max(balance(n.left), balance(n.right));
+		t.balance = 1 + Math.max(balance(t.left), balance(t.right));
 		return t;
 	}
 
 	private Node rightRotate(Node n) {
-		//System.out.println("\tright rotating on " + n.key);
+		System.out.println("\tright rotating on " + n.key);
 		Node t = n.left;
 		n.left = t.right;
 		t.right = n;
-		n.height = 1 + Math.max(height(n.left), height(n.right));
-		t.height = 1 + Math.max(height(t.left), height(t.right));
+		n.balance = 1 + Math.max(balance(n.left), balance(n.right));
+		t.balance = 1 + Math.max(balance(t.left), balance(t.right));
 		return t;
 	}
 
@@ -91,12 +98,12 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 		private V val;
 		private Node left = null;
 		private Node right = null;
-		private int height;
+		private int balance;
 
 		public Node(K key, V val) {
 			this.key = key;
 			this.val = val;
-			this.height = 1;
+			this.balance = 1;
 		}
 	}
 

@@ -1,11 +1,75 @@
 package com.uca.ds.trees;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
-
-public class BST<K extends Comparable<K>, V> implements Tree<K,V> {
+public class BST<K extends Comparable<K>, V> implements Tree<K, V> {
 
 	private Node root = null;
+
+	private class NodeWithCordinate {
+		private Node node;
+		private int cordinate;
+
+		public NodeWithCordinate(Node node, int c) {
+			this.node = node;
+			this.cordinate = c;
+		}
+	}
+	
+	public class SortedKey implements Comparable<SortedKey>{
+		private K k;
+		private int cordinate;
+		public SortedKey(K k, int cordinate) {
+			this.k = k;
+			this.cordinate = cordinate;
+		}
+		@Override
+		public int compareTo(SortedKey o) {
+			if(this.cordinate == o.cordinate) return 0;
+			if(this.cordinate>o.cordinate) return +1;
+			return -1;
+		}
+	}
+	public List<K> topView() {
+		List<K> result = new ArrayList<>();
+		List<SortedKey> view = topView(root);
+		Collections.sort(view);
+		for(SortedKey key : view) {
+			result.add(key.k);
+		}
+		return result;
+	}
+
+	public List<SortedKey> topView(Node n) {
+		List<SortedKey> result= new ArrayList<>();
+		Queue<NodeWithCordinate> q = new LinkedList<>();
+		Set<Integer> visitedCordinate = new HashSet<>();
+		q.add(new NodeWithCordinate(n, 0));
+		while (!q.isEmpty()) {
+			NodeWithCordinate temp = q.poll();
+			if (!visitedCordinate.contains(temp.cordinate)) {
+				//System.out.println(temp.node.key);
+				result.add(new SortedKey(temp.node.key, temp.cordinate));
+				visitedCordinate.add(temp.cordinate);
+			}
+			if (temp.node.left != null) {
+				q.add(new NodeWithCordinate(temp.node.left, temp.cordinate - 1));
+			}
+			if (temp.node.right != null) {
+				q.add(new NodeWithCordinate(temp.node.right, temp.cordinate + 1));
+			}
+		}
+		
+		return result;
+
+	}
 
 	@Override
 	public void add(K key, V val) {
@@ -93,7 +157,3 @@ public class BST<K extends Comparable<K>, V> implements Tree<K,V> {
 	}
 
 }
-
-
-
-

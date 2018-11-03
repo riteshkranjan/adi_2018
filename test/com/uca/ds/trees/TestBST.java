@@ -1,5 +1,6 @@
 package com.uca.ds.trees;
 
+import java.util.List;
 import java.util.Random;
 
 public class TestBST {
@@ -31,12 +32,18 @@ public class TestBST {
 		assert llrbt.get(8) == null;
 
 		BST<Integer, String> bst = new BST<>();
+		bst.add(5, "five");
 		bst.add(7, "seven");
 		bst.add(6, "six");
-		bst.add(5, "five");
-		bst.add(3, "three");
 		bst.add(2, "two");
+		bst.add(3, "three");
 		bst.add(1, "one");
+		
+		System.out.println("printing top view");
+		List<Integer> result = bst.topView();
+		System.out.println(result.toString());
+		System.out.println("done with top view");
+		
 		assert bst.height() == 6;
 		assert bst.get(1).equals("one");
 		assert bst.get(8) == null;
@@ -72,9 +79,9 @@ public class TestBST {
 		}
 
 		Random r = new Random();
-		for (int i = 100; i > 0; i--) {
-			random.add(r.nextInt(Integer.MAX_VALUE), "somevalue");
-			sorted.add(i, "somevalue");
+		for (int i = 5; i > 0; i--) {
+			random.add(r.nextInt(5), "somevalue");
+			//sorted.add(i, "somevalue");
 		}
 		System.out.println(name + " height with random input = " + random.height());
 		System.out.println(name + " height with sorted input = " + sorted.height());
