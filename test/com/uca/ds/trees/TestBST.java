@@ -6,41 +6,77 @@ public class TestBST {
 
 	public static void main(String[] args) {
 
+		AVL<Integer, String> avl = new AVL<>();
+		avl.add(7, "seven");
+		avl.add(6, "six");
+		avl.add(5, "five");
+		avl.add(3, "three");
+		avl.add(2, "two");
+		avl.add(1, "one");
+
+		assert avl.height() == 3;
+		assert avl.get(1).equals("one");
+		assert avl.get(8) == null;
+
+		LLRBT<Integer, String> llrbt = new LLRBT<>();
+		llrbt.add(7, "seven");
+		llrbt.add(6, "six");
+		llrbt.add(5, "five");
+		llrbt.add(3, "three");
+		llrbt.add(2, "two");
+		llrbt.add(1, "one");
+
+		assert llrbt.height() == 4;
+		assert llrbt.get(1).equals("one");
+		assert llrbt.get(8) == null;
+
 		BST<Integer, String> bst = new BST<>();
+		bst.add(7, "seven");
+		bst.add(6, "six");
 		bst.add(5, "five");
+		bst.add(3, "three");
 		bst.add(2, "two");
 		bst.add(1, "one");
-		bst.add(3, "three");
-		bst.add(6, "six");
-		bst.add(7, "seven");
-		System.out.println(bst.height());
-		System.out.println(bst.get(1));
-		System.out.println(bst.get(8));
+		assert bst.height() == 6;
+		assert bst.get(1).equals("one");
+		assert bst.get(8) == null;
 
-		System.out.println(bst.getRank(1));//0
-		System.out.println(bst.getRank(2));//1
+		assert bst.getRank(1) == 0;
+		assert bst.getRank(2) == 1;
 
-	//	for (int i = 0; i < 100; i++)
-		//	testRun();
+		System.out.println("all test cases passed");
+		testRun("BST");
+		testRun("AVL");
+		testRun("RBT");
 
 	}
 
-	private static void testRun() {
-		BST<Integer, String> bst = new BST<>();
+	private static void testRun(String name) {
+		Tree<Integer, String> random;
+		Tree<Integer, String> sorted;
+		switch (name) {
+		case "BST": {
+			random = new BST<>();
+			sorted = new BST<>();
+			break;
+		}
+		case "AVL": {
+			random = new AVL<>();
+			sorted = new AVL<>();
+			break;
+		}
+		default: {
+			random = new LLRBT<>();
+			sorted = new LLRBT<>();
+		}
+		}
 
 		Random r = new Random();
 		for (int i = 100; i > 0; i--) {
-			bst.add(i, "somevalue");
+			random.add(r.nextInt(Integer.MAX_VALUE), "somevalue");
+			sorted.add(i, "somevalue");
 		}
-
-		/*
-		 * bst.add(1, "one"); bst.add(2, "two"); bst.add(5, "five"); bst.add(6, "six");
-		 * bst.add(7, "seven");
-		 */
-		// System.out.println(bst.get(1));
-		// System.out.println(bst.get(8));
-
-		System.out.println(bst.height());
+		System.out.println(name + " height with random input = " + random.height());
+		System.out.println(name + " height with sorted input = " + sorted.height());
 	}
-
 }

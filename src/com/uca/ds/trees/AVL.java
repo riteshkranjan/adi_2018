@@ -2,11 +2,9 @@ package com.uca.ds.trees;
 
 import java.util.Iterator;
 
-public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
+public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 
 	private Node root = null;
-	private final boolean RED = false;
-	private final boolean BLACK = true;
 
 	@Override
 	public int height() {
@@ -16,9 +14,8 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 	private int height(Node n) {
 		if (n == null)
 			return 0;
-		return 1 + Math.max(height(n.left), height(n.right));
+		return n.height;
 	}
-
 	@Override
 	public V get(K key) {
 		Node n = get(root, key);
@@ -33,13 +30,12 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 			return n;
 		return cmp > 0 ? get(n.right, key) : get(n.left, key);
 	}
-
+	
 	@Override
 	public void add(K key, V val) {
 		//System.out.println("inserting " + key);
 		root = add(root, key, val);
-		root.color = BLACK;
-		//System.out.println("done");
+		//System.out.println("\troot is " + root.key);
 	}
 
 	private Node add(Node n, K key, V val) {
@@ -52,12 +48,20 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 			n.right = add(n.right, key, val);
 		else
 			n.left = add(n.left, key, val);
-		if (getColor(n.left) == BLACK && getColor(n.right) == RED)
-			n = leftRotate(n);
-		if (getColor(n.left) == RED && getColor(n.left.left) == RED)
+		n.height = 1 + Math.max(height(n.left), height(n.right));
+		int diff = height(n.left) - height(n.right);
+		if (diff > 1) {
+			if (key.compareTo(n.left.key) > 0) {
+				n.left = leftRotate(n.left);
+			}
 			n = rightRotate(n);
-		if (getColor(n.left) == RED && getColor(n.right) == RED)
-			n = swapColor(n);
+		}
+		if (diff < -1) {
+			if (key.compareTo(n.right.key) < 0) {
+				n.right = rightRotate(n.right);
+			}
+			n = leftRotate(n);
+		}
 		return n;
 
 	}
@@ -67,8 +71,8 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 		Node t = n.right;
 		n.right = t.left;
 		t.left = n;
-		t.color = n.color;
-		n.color = RED;
+		n.height = 1 + Math.max(height(n.left), height(n.right));
+		t.height = 1 + Math.max(height(t.left), height(t.right));
 		return t;
 	}
 
@@ -77,17 +81,9 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 		Node t = n.left;
 		n.left = t.right;
 		t.right = n;
-		t.color = n.color;
-		n.color = RED;
+		n.height = 1 + Math.max(height(n.left), height(n.right));
+		t.height = 1 + Math.max(height(t.left), height(t.right));
 		return t;
-	}
-
-	private Node swapColor(Node n) {
-		//System.out.println("\tswapping colors for " + n.key);
-		n.left.color = n.color;
-		n.right.color = n.color;
-		n.color = RED;
-		return n;
 	}
 
 	private class Node {
@@ -95,12 +91,12 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 		private V val;
 		private Node left = null;
 		private Node right = null;
-		private boolean color;
+		private int height;
 
 		public Node(K key, V val) {
 			this.key = key;
 			this.val = val;
-			this.color = RED;
+			this.height = 1;
 		}
 	}
 
@@ -109,11 +105,4 @@ public class LLRBT<K extends Comparable<K>, V> implements Tree<K,V> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	private boolean getColor(Node n) {
-		if (n == null)
-			return BLACK;
-		return n.color;
-	}
-
 }

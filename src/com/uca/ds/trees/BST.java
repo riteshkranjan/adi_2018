@@ -3,10 +3,11 @@ package com.uca.ds.trees;
 import java.util.Iterator;
 
 
-public class BST<K extends Comparable<K>, V> implements Iterable<K> {
+public class BST<K extends Comparable<K>, V> implements Tree<K,V> {
 
 	private Node root = null;
 
+	@Override
 	public void add(K key, V val) {
 		root = add(root, key, val);
 	}
@@ -29,6 +30,7 @@ public class BST<K extends Comparable<K>, V> implements Iterable<K> {
 		return n == null ? 0 : n.N;
 	}
 
+	@Override
 	public V get(K key) {
 		Node n = get(root, key);
 		return n == null ? null : n.val;
@@ -43,6 +45,7 @@ public class BST<K extends Comparable<K>, V> implements Iterable<K> {
 		return cmp > 0 ? get(n.right, key) : get(n.left, key);
 	}
 
+	@Override
 	public int height() {
 		return height(root);
 	}
