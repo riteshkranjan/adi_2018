@@ -32,18 +32,14 @@ public class TestBST {
 		assert llrbt.get(8) == null;
 
 		BST<Integer, String> bst = new BST<>();
-		bst.add(5, "five");
-		bst.add(7, "seven");
-		bst.add(6, "six");
+
+		bst.add(1, "one");
 		bst.add(2, "two");
 		bst.add(3, "three");
-		bst.add(1, "one");
-		
-		System.out.println("printing top view");
-		List<Integer> result = bst.topView();
-		System.out.println(result.toString());
-		System.out.println("done with top view");
-		
+		bst.add(5, "five");
+		bst.add(6, "six");
+		bst.add(7, "seven");
+
 		assert bst.height() == 6;
 		assert bst.get(1).equals("one");
 		assert bst.get(8) == null;
@@ -51,11 +47,45 @@ public class TestBST {
 		assert bst.getRank(1) == 0;
 		assert bst.getRank(2) == 1;
 
+		testTopView();
+		testTravelsals();
+		//assert bst.diffOfOddEven() == -6 : "sum of diff test failed";
+		
+		BST<String, String> b2 = new BST<String, String>();
+		b2.add("aa", "sdf");
+		System.out.println(bst.diffOfOddEven());
+		
 		System.out.println("all test cases passed");
 		testRun("BST");
 		testRun("AVL");
 		testRun("RBT");
+	}
 
+	private static void testTopView() {
+		BST<Integer, String> bst = new BST<>();
+		bst.add(5, "five");
+		bst.add(7, "seven");
+		bst.add(6, "six");
+		bst.add(2, "two");
+		bst.add(3, "three");
+		bst.add(1, "one");
+		compareList(bst.topView(), 1, 2, 5, 7);
+	}
+
+	private static void testTravelsals() {
+		BST<Integer, String> bst = new BST<>();
+		bst.add(5, "five");
+		bst.add(7, "seven");
+		bst.add(6, "six");
+		bst.add(2, "two");
+		bst.add(3, "three");
+		bst.add(1, "one");
+		compareList(bst.inOrder(), 1, 2, 3, 5, 6, 7);
+		compareList(bst.preOrder(), 5, 1, 2, 3, 6, 7);
+		compareList(bst.postOrder(), 1, 2, 3, 6, 7, 5);
+		compareList(bst.levelOrder(), 5, 2, 7, 1, 3, 6);
+		compareList(bst.zigzagOrder(), 5, 2, 7, 6, 3, 1);
+		
 	}
 
 	private static void testRun(String name) {
@@ -79,11 +109,20 @@ public class TestBST {
 		}
 
 		Random r = new Random();
-		for (int i = 5; i > 0; i--) {
-			random.add(r.nextInt(5), "somevalue");
-			//sorted.add(i, "somevalue");
+		for (int i = 100; i > 0; i--) {
+			random.add(r.nextInt(Integer.MAX_VALUE), "somevalue");
+			sorted.add(i, "somevalue");
 		}
 		System.out.println(name + " height with random input = " + random.height());
 		System.out.println(name + " height with sorted input = " + sorted.height());
+	}
+
+	private static void compareList(List<Integer> actual, int... expected) {
+		assert actual.size() == expected.length : String.format("size did not match. expected = %d while actual was %d",
+				expected.length, actual.size());
+		for (int i = 0; i < actual.size(); i++) {
+			assert actual.get(i) == expected[i] : String.format(
+					"index at %d did not match. expected = %d while actual = %d", i, expected[i], actual.get(i));
+		}
 	}
 }

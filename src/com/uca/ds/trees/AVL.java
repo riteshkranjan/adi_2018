@@ -40,9 +40,9 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 
 	@Override
 	public void add(K key, V val) {
-		System.out.println("inserting " + key);
+		//System.out.println("inserting " + key);
 		root = add(root, key, val);
-		System.out.println("\troot is " + root.key);
+		//System.out.println("\troot is " + root.key);
 	}
 
 	private Node add(Node n, K key, V val) {
@@ -74,7 +74,7 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 	}
 
 	private Node leftRotate(Node n) {
-		System.out.println("\tleft rotating on " + n.key);
+		//System.out.println("\tleft rotating on " + n.key);
 		Node t = n.right;
 		n.right = t.left;
 		t.left = n;
@@ -84,7 +84,7 @@ public class AVL<K extends Comparable<K>, V> implements Tree<K, V> {
 	}
 
 	private Node rightRotate(Node n) {
-		System.out.println("\tright rotating on " + n.key);
+		//System.out.println("\tright rotating on " + n.key);
 		Node t = n.left;
 		n.left = t.right;
 		t.right = n;
