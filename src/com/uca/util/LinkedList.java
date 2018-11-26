@@ -1,6 +1,6 @@
 package com.uca.util;
 
-public class LinkedList<E> implements List<E>,Queue<E> {
+public class LinkedList<E> implements List<E>, Queue<E> {
 	private Node head = null;
 	private int size = 0;
 
@@ -60,6 +60,8 @@ public class LinkedList<E> implements List<E>,Queue<E> {
 
 			@Override
 			public E next() {
+				if (t == null)
+					return null;
 				E e = t.data;
 				t = t.next;
 				return e;
@@ -68,9 +70,21 @@ public class LinkedList<E> implements List<E>,Queue<E> {
 	}
 
 	@Override
-	public void add(E e, int index) {
-		// TODO Auto-generated method stub
+	public void add(int index, E e) {
+		if (index >= size)
+			throw new IllegalAccessError("not a valid index " + index);
+		head = add(e, index, head);
+		size++;
+	}
 
+	private Node add(E e, int index, Node n) {
+		if (index == 0) {
+			Node temp = new Node(e);
+			temp.next = n;
+			return temp;
+		}
+		n.next = add(e, index - 1, n.next);
+		return n;
 	}
 
 	@Override
@@ -81,8 +95,13 @@ public class LinkedList<E> implements List<E>,Queue<E> {
 
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index >= size)
+			throw new IllegalAccessError("not a valid index " + index);
+		Node temp = head;
+		while(index-- >0) {
+			temp = temp.next;
+		}
+		return temp.data;
 	}
 
 	private class Node {
@@ -109,7 +128,7 @@ public class LinkedList<E> implements List<E>,Queue<E> {
 	@Override
 	public void enqueue(E e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

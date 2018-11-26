@@ -10,7 +10,7 @@ public class HashSet<E> implements Set<E> {
 	public HashSet(int bucketSize, float loadFactor) {
 		this.bucketSize = bucketSize;
 		this.loadFactor = loadFactor;
-		this.bucket = (LinkedList<E>[]) new Object[bucketSize];
+		this.bucket = (LinkedList<E>[]) new LinkedList[bucketSize];
 	}
 
 	public HashSet() {
@@ -26,7 +26,7 @@ public class HashSet<E> implements Set<E> {
 		if (!bucket[bucketNumber].contains(e)) {
 			bucket[bucketNumber].add(e);
 			size++;
-			if (bucket[bucketNumber].size() >= size * loadFactor) {
+			if (bucket[bucketNumber].size() >= bucketSize * loadFactor) {
 				resize();
 			}
 		}
@@ -36,8 +36,8 @@ public class HashSet<E> implements Set<E> {
 	@SuppressWarnings("unchecked")
 	private void resize() {
 		Iterator<E> ite = this.iterator();
-		LinkedList<E>[] temp = (LinkedList<E>[]) new Object[this.bucketSize * 2];
-		this.bucketSize = 2 * bucketSize;
+		bucketSize = 2 * bucketSize;
+		LinkedList<E>[] temp = (LinkedList<E>[]) new LinkedList[bucketSize];
 		while (ite.hasNext()) {
 			E curr = ite.next();
 			int bucketNumber = curr.hashCode() % bucketSize;
@@ -86,32 +86,31 @@ public class HashSet<E> implements Set<E> {
 	public Iterator<E> iterator() {
 
 		return new Iterator<E>() {
-			private int i = 0;
+			private int i = -1;
 			Iterator<E> ite = null;
 
 			@Override
 			public boolean hasNext() {
 				if (ite != null && ite.hasNext())
 					return true;
-				while (i < bucketSize && bucket[i] == null) {
+				else
 					i++;
-				}
-				if (i == bucketSize)
+
+				if (i >= bucketSize)
 					return false;
-
-				if (ite == null)
-					ite = bucket[i].iterator();
-
-				i++;
-				ite = null;
-				return hasNext();
+				LinkedList<E> curr = bucket[i];
+				while (curr == null && i < bucketSize - 1) {
+					curr = bucket[++i];
+				}
+				if (curr == null)
+					return false;
+				ite = curr.iterator();
+				return true;
 			}
 
 			@Override
 			public E next() {
-				if (hasNext())
-					return ite.next();
-				return null;
+				return ite.next();
 			}
 		};
 	}

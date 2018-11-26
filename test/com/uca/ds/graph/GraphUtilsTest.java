@@ -1,6 +1,6 @@
 package com.uca.ds.graph;
 
-class GraphUtilsTest {
+public class GraphUtilsTest {
 	private static GraphUtils u = new GraphUtils();
 
 	public static void main(String[] args) {
@@ -26,6 +26,37 @@ class GraphUtilsTest {
 		testHasSelfLoop(g);
 		testMaxDegree(g);
 		testSelfLoopCount(g);
+		testEular();
+	}
+
+	private static void testEular() {
+		Graph g = new Graph(4);
+		g.addEdge(0, 1);
+		g.addEdge(0, 1);
+		g.addEdge(2, 1);
+		g.addEdge(2, 1);
+		g.addEdge(1, 3);
+		g.addEdge(2, 3);
+		g.addEdge(0, 3);
+		assert u.isEularTourPossible(g)==false;
+		g = new Graph(4);
+		g.addEdge(0, 1);
+		g.addEdge(2, 1);
+		g.addEdge(2, 1);
+		g.addEdge(1, 3);
+		g.addEdge(0, 3);
+		assert u.isEularTourPossible(g)==true;
+		
+		//disconnected graph 
+		g = new Graph(4);
+		g.addEdge(0, 1);
+		g.addEdge(0, 1);
+		g.addEdge(2, 1);
+		g.addEdge(2, 1);
+		
+		assert u.isEularTourPossible(g)==false;
+		
+		
 	}
 
 	private static void testDegree(Graph g) {
@@ -36,6 +67,12 @@ class GraphUtilsTest {
 
 	private static void testHasSelfLoop(Graph g) {
 		assert u.hasSelfLoop(g) == true;
+		Graph g2 = new Graph(0);
+		assert u.hasSelfLoop(g2) == false;
+		g2 = new Graph(4);
+		assert u.hasSelfLoop(g2) == false;
+		g2.addEdge(1, 1);
+		assert u.hasSelfLoop(g2) == true;
 	}
 
 	private static void testSelfLoopCount(Graph g) {

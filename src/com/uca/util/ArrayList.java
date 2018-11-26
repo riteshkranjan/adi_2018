@@ -45,7 +45,7 @@ public class ArrayList<E> implements List<E>{
 	}
 
 	@Override
-	public void add(E e, int index) {
+	public void add( int index, E e) {
 		// TODO Auto-generated method stub
 		
 	}

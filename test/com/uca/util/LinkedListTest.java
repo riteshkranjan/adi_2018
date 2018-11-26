@@ -14,6 +14,7 @@ public class LinkedListTest {
 		list.add(2);
 		list.add(3);
 		assert list.size() == 3;
+		assert list.get(0) == 1;
 		assert list.contains(1) == true;
 		assert list.contains(2) == true;
 		validateElements(list, 1, 2, 3);
@@ -25,12 +26,12 @@ public class LinkedListTest {
 		validateElements(list, 4, 1, 5, 2, 3);
 
 		assert list.contains(4) == true;
-		list.remove(4);
+		list.remove(new Integer(4));
 		assert list.contains(4) == false;
 		validateElements(list, 1, 5, 2, 3);
 
 		assert list.contains(3) == true;
-		list.remove(3);
+		list.remove(new Integer(3));
 		assert list.contains(4) == false;
 		validateElements(list, 1, 5, 2);
 
@@ -53,8 +54,6 @@ public class LinkedListTest {
 			isException = true;
 		}
 		assert isException == true;
-
-		System.out.println("All test cases passed");
 	}
 
 	private static void validateElements(List<Integer> l, int... data) {
@@ -62,7 +61,7 @@ public class LinkedListTest {
 		assert l.size() == data.length;
 		assert ite.hasNext() == true;
 		for (int i = 0; i < data.length; i++) {
-			assert l.get(i) == data[i];
+			//assert l.get(i) == data[i];
 			assert ite.next() == data[i];
 		}
 		assert ite.hasNext() == false;

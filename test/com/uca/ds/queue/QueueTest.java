@@ -1,10 +1,11 @@
 package com.uca.ds.queue;
-public class TestQueue{
+public class QueueTest{
 
    public static void main(String... s){
      testQueueFunctions(new BasicQueue());
      testQueueFunctions(new CircularQueue());
      testQueueFunctions(new LinkedListQueue());
+     System.out.println("all test cases passed");
    }
    
    public static void testQueueFunctions(QueueIntf q){
@@ -25,7 +26,6 @@ public class TestQueue{
       assert q.dequeue() == 4;
       assert q.size() == 0;
       assert q.isEmpty() == true;
-      System.out.println("All test cases passed for " + q.getClass().getName());
 
    }
 }

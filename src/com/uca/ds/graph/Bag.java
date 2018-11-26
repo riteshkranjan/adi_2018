@@ -43,10 +43,6 @@ public class Bag implements Iterable<Integer> {
 				current = current.next;
 				return temp;
 			}
-			@Override
-			public void remove() {
-				//not allowed
-			}
 		};
 	}
 

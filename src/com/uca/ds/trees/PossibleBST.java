@@ -5,14 +5,7 @@ package com.uca.ds.trees;
  */
 public class PossibleBST {
 	
-	public static void main(String[] args) {
-		int n = 8;
-		int[] res = new int[n+1];
-		System.out.println(solveUsingRecursion(n, res));
-		System.out.println(solveUsingDP(n));
-	}
-
-	private static int solveUsingRecursion(int n, int[] res) {
+	public static int solveUsingRecursion(int n, int[] res) {
 		if (n == 0 || n == 1)
 			return 1;
 		if (res[n] != 0)
@@ -25,7 +18,7 @@ public class PossibleBST {
 		return ans;
 	}
 	
-	private static int solveUsingDP(int n) {
+	public static int solveUsingDP(int n) {
 		int[] res = new int[n + 1];
 		res[0] = 1;
 		res[1] = 1;

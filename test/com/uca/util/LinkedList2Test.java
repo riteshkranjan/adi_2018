@@ -1,6 +1,6 @@
 package com.uca.util;
 
-public class TestClass {
+public class LinkedList2Test {
 
 	public static void main(String[] args) {
 		
@@ -34,10 +34,6 @@ public class TestClass {
 		assert ite.next().id == 1;
 		assert ite.next().id == 3;
 		assert ite.hasNext()==false;
-		
-		System.out.println("all test cases passed");
-		
-		
 	}
 
 	private static class Student {

@@ -25,13 +25,13 @@ public class HashSetTest {
 		assert list.contains(1) == true;
 		list.remove(1);
 		assert list.contains(1) == false;
-		data.remove(1);
+		data.remove(new Integer(1));
 		validateElements(list, data);
 
 		assert list.contains(3) == true;
 		list.remove(3);
 		assert list.contains(3) == false;
-		data.remove(3);
+		data.remove(new Integer(3));
 		validateElements(list, data);
 
 		assert list.contains(100) == false;
@@ -39,7 +39,6 @@ public class HashSetTest {
 		assert list.contains(100) == false;
 		validateElements(list, data);
 
-		System.out.println("All test cases passed");
 	}
 
 	private static void validateElements(Set<Integer> l, List<Integer> data) {
@@ -48,7 +47,6 @@ public class HashSetTest {
 		assert ite.hasNext() == true;
 		while (ite.hasNext()) {
 			int s = ite.next();
-			System.out.println(s);
 			assert data.contains(s);
 		}
 		assert ite.hasNext() == false;

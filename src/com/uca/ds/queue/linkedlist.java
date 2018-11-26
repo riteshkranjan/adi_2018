@@ -1,7 +1,6 @@
 package com.uca.ds.queue;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -9,28 +8,7 @@ import java.util.ListIterator;
 public class linkedlist<K> implements List<K> {
 
 	private int size = 0;
-
 	
-
-	public static void main(String args[]) {
-		List<Integer> obj = new linkedlist<>();
-
-		obj.add(10);
-		obj.add(30);
-		obj.add(40);
-		obj.add(20);
-		Collections.sort(obj);
-		Iterator<Integer> i = obj.iterator();
-
-		while (i.hasNext()) {
-			System.out.println(i.next());
-		}
-
-		for (Integer x : obj) {
-			System.out.println(x);
-		}
-	}
-
 	@Override
 	public boolean add(K e) {
 		Node nn = new Node(e);

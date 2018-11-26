@@ -3,7 +3,7 @@ package com.uca.ds.trees;
 import java.util.List;
 import java.util.Random;
 
-public class TestBST {
+public class BSTTest {
 
 	public static void main(String[] args) {
 
@@ -55,7 +55,6 @@ public class TestBST {
 		b2.add("aa", "sdf");
 		System.out.println(bst.diffOfOddEven());
 		
-		System.out.println("all test cases passed");
 		testRun("BST");
 		testRun("AVL");
 		testRun("RBT");
