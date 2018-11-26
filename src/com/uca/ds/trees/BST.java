@@ -261,13 +261,13 @@ public class BST<K extends Comparable<K>, V> implements Tree<K, V> {
 			while (!q.isEmpty()) {
 				Node temp = q.pop();
 				if (reverse) {
-					sum += (int) temp.key;
+					sum += (Integer) temp.key;
 					if (temp.left != null)
 						t.push(temp.left);
 					if (temp.right != null)
 						t.push(temp.right);
 				} else {
-					sum += (int) temp.key * -1;
+					sum += (Integer) temp.key * -1;
 					if (temp.right != null)
 						t.push(temp.right);
 					if (temp.left != null)

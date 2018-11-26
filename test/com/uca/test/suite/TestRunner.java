@@ -20,7 +20,7 @@ public class TestRunner {
 			if (f1.isDirectory()) {
 				function(f1, suffix + "." + f1.getName());
 			} else {
-				if (f1.getName().endsWith("Test.java") || f1.getName().endsWith("Test.class")) {
+				if (f1.getName().endsWith("Test.java")) {
 					String className = (suffix + "." + f1.getName()).substring(1).replace(".java", "");
 					Class<?> c = classLoader.loadClass(className);
 					System.out.print("Running " + className + " : ");
