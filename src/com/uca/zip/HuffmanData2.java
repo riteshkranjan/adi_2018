@@ -1,10 +1,11 @@
 package com.uca.zip;
 
 import java.io.Serializable;
+import java.util.Map;
 
-public class HuffmanData implements Serializable{
+public class HuffmanData2 implements Serializable{
 	private static final long serialVersionUID = 2814089480431631749L;
-	HuffmanCode c;
+	Map<Character, Integer> c;
 	char l;
 
 }

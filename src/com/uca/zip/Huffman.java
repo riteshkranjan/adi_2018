@@ -11,7 +11,7 @@ public class Huffman {
 	private HuffmanCode root;
 	private Map<Character, String> encode = new HashMap<>();
 	private int maxSizeEncode;
-	private final char MAX_CHAR = 127;
+	private final char MAX_CHAR = '+';
 
 	public HuffmanCode constructHuffmanCode(char data, int count) {
 		HuffmanCode c = new HuffmanCode();
@@ -36,8 +36,8 @@ public class Huffman {
 			HuffmanCode h1 = q.poll();
 			HuffmanCode h2 = q.poll();
 			HuffmanCode h = constructHuffmanCode(MAX_CHAR, h1.count + h2.count);
-			h.left = h1;
-			h.right = h2;
+			h.l = h1;
+			h.r = h2;
 			q.add(h);
 			root = h;
 		}
@@ -58,8 +58,8 @@ public class Huffman {
 			return h.data;
 		long temp = pattern >> (index - 1);
 		if ((temp & 1) == 0)
-			return search(h.left, pattern, index - 1);
-		return search(h.right, pattern, index - 1);
+			return search(h.l, pattern, index - 1);
+		return search(h.r, pattern, index - 1);
 	}
 
 	public int getMaxSizeEncode() {
@@ -74,8 +74,8 @@ public class Huffman {
 			if (val.length() > maxSizeEncode)
 				maxSizeEncode = val.length();
 		}
-		preOrder(h.left, val + "0");
-		preOrder(h.right, val + "1");
+		preOrder(h.l, val + "0");
+		preOrder(h.r, val + "1");
 	}
 
 	public HuffmanCode getRoot() {
