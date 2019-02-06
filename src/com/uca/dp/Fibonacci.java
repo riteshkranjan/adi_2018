@@ -1,6 +1,6 @@
 package com.uca.dp;
 
-public class Fibonnacci {
+public class Fibonacci {
 
 	public int getFib(int n) {
 		int[] fib = new int[n + 1];

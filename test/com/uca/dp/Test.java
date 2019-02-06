@@ -5,9 +5,21 @@ public class Test {
 	public static void main(String[] args) {
 		testBitConverse();
 		testCandyJar();
-		testFibonnacci();
+		testFibonacci();
 		testPossibleBST();
 		testValidParenthesis();
+		testLCS();
+	}
+
+	private static void testLCS() {
+		LCS l = new LCS("abcdefgh", "bdg");
+		assert l.getCount()==3;
+		assert l.getLCS().equals("bdg");
+		
+		l = new LCS("abcdefgh", "bzg");
+		assert l.getCount()==2;
+		assert l.getLCS().equals("bg");
+		
 	}
 
 	private static void testPossibleBST() {
@@ -22,8 +34,8 @@ public class Test {
 
 	}
 
-	private static void testFibonnacci() {
-		Fibonnacci f = new Fibonnacci();
+	private static void testFibonacci() {
+		Fibonacci f = new Fibonacci();
 		assert f.getFib(3) == 3;
 
 	}
